@@ -2,40 +2,40 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-[RequireComponent(typeof(Car))]
+[RequireComponent(typeof(PlayerRocket))]
 public class PlayerController : MonoBehaviour
 {
-	private Car m_car;
-	public Car car
+	private PlayerRocket m_rocket;
+	public PlayerRocket rocket
 	{
 		get
 		{
-			if(m_car == null)
+			if(m_rocket == null)
 			{
-				m_car = GetComponent<Car>();
+				m_rocket = GetComponent<PlayerRocket>();
 			}
-			return m_car;
+			return m_rocket;
 		}
 	}
+	const float defaultCamDistance = 10f;
+	public float camDistance = 10;
 
 	void Update()
 	{
-		car.Drive(Input.GetAxis("Gas")*-1);
+		
 		if(Input.GetKeyDown(KeyCode.Joystick1Button0))
 		{
-			car.Jump();
+			rocket.Jump();
 		}
+		camDistance = ( Input.GetAxis("Zoom") + 1 ) * defaultCamDistance;
 		
 	}
 
 	void FixedUpdate()
 	{
 		//These movements are based on rigidbody behaviour
-		car.Rotate(Input.GetAxis("Rotation") * -1);
-		if(Input.GetKey(KeyCode.Joystick1Button1))
-		{
-			car.Boost();
-		}
+		rocket.Rotate(Input.GetAxis("Rotation"));
+		rocket.Boost(Input.GetAxis("Gas"));
 	}
 
 }

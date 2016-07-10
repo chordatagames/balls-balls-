@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Gravity : MonoBehaviour {
 
 	public static float G = 1F;
+	public static List<Gravity> attractors = new List<Gravity>();
 
 	public float radiusSOI { get { return rigid.mass * 0.25f; } set { rigid.mass = ( value / 0.25f ); } }//Yep that's gravitys SOI for yall
 
@@ -19,6 +20,11 @@ public class Gravity : MonoBehaviour {
 			}
 			return m_rigid;
 		}
+	}
+	
+	void Start()
+	{
+		attractors.Add(this);
 	}
 
 	private Collider2D[] affectedColliders;
