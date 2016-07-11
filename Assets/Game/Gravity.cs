@@ -7,7 +7,7 @@ public class Gravity : MonoBehaviour {
 	public static float G = 1F;
 	public static List<Gravity> attractors = new List<Gravity>();
 
-	public float radiusSOI { get { return rigid.mass * 0.25f; } set { rigid.mass = ( value / 0.25f ); } }//Yep that's gravitys SOI for yall
+	public float radiusSOI { get { return rigid.mass * 0.0625f; } set { rigid.mass = ( value / 0.0625f ); } }//Yep that's gravitys SOI for yall
 
 	private Rigidbody2D m_rigid;
 	public Rigidbody2D rigid
@@ -54,6 +54,6 @@ public class Gravity : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
-		//Gizmos.DrawWireSphere(rigid.transform.position, radiusSOI);
+		Gizmos.DrawWireSphere(rigid.transform.position, radiusSOI);
 	}
 }
