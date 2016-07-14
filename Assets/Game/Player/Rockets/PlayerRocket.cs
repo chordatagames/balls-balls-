@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerRocket : MonoBehaviour
+[RequireComponent(typeof(DistanceJoint2D))]
+public class PlayerRocket : GravityAffected
 {
+	internal override void Awake()
+	{
+		base.Awake();
+		distJoint = RequireComponent<DistanceJoint2D>(joint => joint.enabled = false);
+		booster = transform.FindChild("booster");
+	}
+	
+	private DistanceJoint2D distJoint;
+	private Transform booster;
 
-
-	[SerializeField]
-	Collider2D col;
-
-	[SerializeField]
-	DistanceJoint2D distJoint;
-
-	public Rigidbody2D mainBody;
-
-	[SerializeField]
-	Transform booster;
-
-	public float totalMass;
 	public float jumpForce = 100F;
 	public float boostForce = 100F;
 	public float rotationSpeed = 10;
@@ -54,8 +51,7 @@ public class PlayerRocket : MonoBehaviour
 		yield return new WaitForSeconds(waitTime);
 		canCollide = true;
 	}
-
-
+	
 	public void Boost(float value)
 	{
 		Debug.DrawLine(booster.position, booster.position + ( facingRight ? 1 : -1 ) * mainBody.transform.right * boostForce, Color.red);

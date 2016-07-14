@@ -3,22 +3,18 @@ using UnityEngine.Networking;
 using System.Collections;
 
 [RequireComponent(typeof(PlayerRocket))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : ScriptedBehaviour
 {
-	private PlayerRocket m_rocket;
-	public PlayerRocket rocket
-	{
-		get
-		{
-			if(m_rocket == null)
-			{
-				m_rocket = GetComponent<PlayerRocket>();
-			}
-			return m_rocket;
-		}
-	}
+	[HideInInspector]
+	public PlayerRocket rocket;
+
 	const float defaultCamDistance = 10f;
 	public float camDistance = 10;
+
+	void Awake()
+	{
+		rocket = RequireComponent<PlayerRocket>();
+	}
 
 	void Update()
 	{

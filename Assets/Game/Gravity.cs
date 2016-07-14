@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Gravity : MonoBehaviour {
+public class Gravity : ScriptedBehaviour {
 
 	public static float G = 1F;
 	public static List<Gravity> attractors = new List<Gravity>();
@@ -15,13 +15,11 @@ public class Gravity : MonoBehaviour {
 		get
 		{
 			if(m_rigid == null)
-			{
-				m_rigid = GetComponent<Rigidbody2D>();
-			}
+			{ m_rigid = RequireComponent<Rigidbody2D>(); }
 			return m_rigid;
 		}
 	}
-	
+
 	void Start()
 	{
 		attractors.Add(this);
@@ -54,6 +52,6 @@ public class Gravity : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
-		Gizmos.DrawWireSphere(rigid.transform.position, radiusSOI);
+		//Gizmos.DrawWireSphere(rigid.transform.position, radiusSOI);
 	}
 }
